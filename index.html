@@ -297,6 +297,108 @@
           <span>Dispositivos</span>
         </div>
       </div>
+
+      <!-- ======= SIMULADOR DEL ORQUESTADOR (pseudocódigo ejecutable) ======= -->
+      <div class="simulator fade-in" id="simulador">
+        <div class="simulator__intro">
+          <p class="section__eyebrow" style="margin-bottom:0.6rem;">Pseudocódigo llevado a código</p>
+          <h3 class="simulator__title">Simulador del Orquestador</h3>
+          <p class="simulator__desc">Compara, en vivo, el comportamiento del sistema domótico <strong>antes</strong> y <strong>después</strong> de implementar el Orquestador Inteligente. La lógica ejecutada aquí corresponde exactamente a los algoritmos diseñados en PSeInt para este proyecto.</p>
+        </div>
+
+        <div class="simulator__card">
+          <div class="simulator__tabs" role="tablist">
+            <button class="simulator__tab is-active" data-tab="antes" role="tab" aria-selected="true">
+              <i class="fa-solid fa-triangle-exclamation"></i> Antes — sin orquestador
+            </button>
+            <button class="simulator__tab" data-tab="despues" role="tab" aria-selected="false">
+              <i class="fa-solid fa-robot"></i> Después — con orquestador IA
+            </button>
+          </div>
+
+          <!-- ---- PANEL "ANTES" ---- -->
+          <div class="simulator__panel is-active" data-panel="antes">
+            <p class="simulator__panel-note">Cada dispositivo actúa por su cuenta. El sistema solo <em>avisa</em> cuando detecta una contradicción, pero nunca la corrige.</p>
+
+            <div class="simulator__grid">
+              <label class="field">
+                <span>Temperatura actual (°C)</span>
+                <input type="number" id="antesTemp" value="30" min="-10" max="50">
+              </label>
+              <label class="field">
+                <span>Hora del sistema (0-23)</span>
+                <input type="number" id="antesHora" value="14" min="0" max="23">
+              </label>
+              <div class="field field--toggle">
+                <span>Ventanas abiertas</span>
+                <button type="button" class="toggle" data-target="antesVentanas" data-value="true" aria-pressed="true">Verdadero</button>
+              </div>
+              <div class="field field--toggle">
+                <span>Aire acondicionado encendido</span>
+                <button type="button" class="toggle" data-target="antesAire" data-value="true" aria-pressed="true">Verdadero</button>
+              </div>
+              <div class="field field--toggle">
+                <span>Cerraduras puestas</span>
+                <button type="button" class="toggle" data-target="antesCerraduras" data-value="false" aria-pressed="false">Falso</button>
+              </div>
+              <div class="field field--toggle">
+                <span>Alarma activa</span>
+                <button type="button" class="toggle" data-target="antesAlarma" data-value="true" aria-pressed="true">Verdadero</button>
+              </div>
+            </div>
+
+            <button class="btn btn--primary simulator__run" id="runAntes">
+              <i class="fa-solid fa-play"></i> Ejecutar simulación
+            </button>
+
+            <div class="terminal" id="outputAntes">
+              <div class="terminal__bar"><span></span><span></span><span></span><p>OrquestadorIoT_Antes.psc</p></div>
+              <pre class="terminal__body">Presiona "Ejecutar simulación" para ver el resultado…</pre>
+            </div>
+          </div>
+
+          <!-- ---- PANEL "DESPUÉS" ---- -->
+          <div class="simulator__panel" data-panel="despues">
+            <p class="simulator__panel-note">El Orquestador recibe los sensores, aprende la preferencia del usuario y corrige cualquier inconsistencia antes de aplicar el estado final.</p>
+
+            <div class="simulator__grid">
+              <label class="field">
+                <span>Escenario de sensores</span>
+                <select id="despuesEscenario">
+                  <option value="1">1 — Tarde calurosa: A/C y ventanas abiertas a la vez</option>
+                  <option value="2">2 — Noche: alarma activa y cerraduras sin poner</option>
+                  <option value="3">3 — Mañana templada: ventanas abiertas, A/C apagado</option>
+                  <option value="4">4 — Temperatura alta sin ninguna ventilación</option>
+                  <option value="5">5 — Noche seguirá: alarma activa, cerraduras puestas</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Preferencia para ventilar</span>
+                <select id="despuesPreferencia">
+                  <option value="VentilacionNatural">Ventana (ventilación natural)</option>
+                  <option value="AireAcondicionado">Aire acondicionado</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Modo de seguridad</span>
+                <select id="despuesModo">
+                  <option value="SeguridadAlta">Seguridad alta</option>
+                  <option value="Balanceada">Balanceada</option>
+                </select>
+              </label>
+            </div>
+
+            <button class="btn btn--primary simulator__run" id="runDespues">
+              <i class="fa-solid fa-play"></i> Ejecutar orquestador
+            </button>
+
+            <div class="terminal" id="outputDespues">
+              <div class="terminal__bar"><span></span><span></span><span></span><p>OrquestadorIoT.psc</p></div>
+              <pre class="terminal__body">Presiona "Ejecutar orquestador" para ver el resultado…</pre>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -365,7 +467,7 @@
 
         <article class="video-item fade-in video-item--reverse">
           <div class="video-item__text">
-            <h3>Solución</h3>
+            <h3>Solución y Conclusión</h3>
             <p class="video-item__author"><i class="fa-regular fa-user"></i> Luisandra Rivera</p>
             <p>Presentación del Orquestador Inteligente como propuesta de solución al problema de inconsistencia, junto con el cierre y recapitulación del primer bloque de la exposición.</p>
           </div>
@@ -459,7 +561,7 @@
       <span class="navbar__mark">CL</span>
       <p>Consistencia Lógica en Sistemas Domóticos</p>
     </div>
-    <p class="footer__note">Universidad Nacional Experimental de Guayana.</p>
+    <p class="footer__note">Universidad Nacional Experimental de Guayana</p>
     <div class="footer__divider"></div>
     <p class="footer__credits">Elaborado por Carlos Vélez, Ezequiel Romero, Juan Esteves, Steven Boada, Mauricio Rodríguez &amp; Luisandra Rivera.</p>
   </div>
