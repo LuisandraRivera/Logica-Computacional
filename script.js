@@ -1,146 +1,155 @@
-/* ============================================================
-   CONSISTENCIA LÓGICA — SCRIPT PRINCIPAL
-   - Navbar dinámica (cambia al hacer scroll)
-   - Menú móvil
-   - Scroll suave para enlaces internos
-   - Resaltado de la sección activa en el menú
-   - Animaciones fade-in al aparecer en pantalla (IntersectionObserver)
-   - Botón flotante "volver arriba"
-   ============================================================ */
+/* ==========================================================================
+   CONSISTENCIA LÓGICA — script.js
+   JavaScript Vanilla: scroll suave, animaciones, navbar dinámica,
+   resaltado de sección activa, botón volver arriba y lazy loading de videos.
+   ========================================================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
 
-  /* ---------- Referencias generales ---------- */
-  const navbar = document.getElementById("navbar");
-  const navToggle = document.getElementById("navToggle");
-  const navLinksContainer = document.getElementById("navLinks");
-  const navLinks = document.querySelectorAll(".nav-link");
-  const sections = document.querySelectorAll("main .section, .hero");
-  const backToTop = document.getElementById("backToTop");
-  const fadeElements = document.querySelectorAll(".fade-in");
-
-  /* ============================================================
+  /* ------------------------------------------------------------------
      1. NAVBAR: cambia de estilo al hacer scroll
-     ============================================================ */
-  function handleNavbarScroll() {
-    if (window.scrollY > 24) {
-      navbar.classList.add("is-scrolled");
-    } else {
-      navbar.classList.remove("is-scrolled");
-    }
-  }
-  handleNavbarScroll();
-  window.addEventListener("scroll", handleNavbarScroll, { passive: true });
+     ------------------------------------------------------------------ */
+  const navbar = document.getElementById('navbar');
 
-  /* ============================================================
-     2. MENÚ MÓVIL (toggle)
-     ============================================================ */
-  navToggle.addEventListener("click", () => {
-    navLinksContainer.classList.toggle("is-open");
+  const handleNavbarScroll = () => {
+    if (window.scrollY > 24) {
+      navbar.classList.add('is-scrolled');
+    } else {
+      navbar.classList.remove('is-scrolled');
+    }
+  };
+  handleNavbarScroll();
+  window.addEventListener('scroll', handleNavbarScroll, { passive: true });
+
+  /* ------------------------------------------------------------------
+     2. MENÚ MÓVIL: abrir / cerrar
+     ------------------------------------------------------------------ */
+  const navToggle = document.getElementById('navToggle');
+  const navMenu = document.getElementById('navMenu');
+
+  navToggle.addEventListener('click', () => {
+    const isOpen = navMenu.classList.toggle('is-open');
+    navToggle.classList.toggle('is-active', isOpen);
+    navToggle.setAttribute('aria-expanded', String(isOpen));
   });
 
   // Cierra el menú móvil al seleccionar una opción
-  navLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      navLinksContainer.classList.remove("is-open");
+  navMenu.querySelectorAll('.nav-link').forEach((link) => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('is-open');
+      navToggle.classList.remove('is-active');
+      navToggle.setAttribute('aria-expanded', 'false');
     });
   });
 
-  /* ============================================================
-     3. SCROLL SUAVE
-     (Se apoya en `scroll-behavior: smooth` del CSS; este listener
-     asegura compatibilidad y evita saltos bruscos en navegadores
-     que no respeten el CSS)
-     ============================================================ */
+  /* ------------------------------------------------------------------
+     3. SCROLL SUAVE para los enlaces internos (navbar + botón hero)
+        (Complementa el "scroll-behavior: smooth" del CSS y ofrece
+        control fino sobre el offset de la navbar fija)
+     ------------------------------------------------------------------ */
+  const NAV_HEIGHT = navbar.offsetHeight;
+
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-      const targetId = this.getAttribute("href");
-      const target = document.querySelector(targetId);
-      if (target) {
-        e.preventDefault();
-        const offset = 80; // compensa la navbar fija
-        const top = target.getBoundingClientRect().top + window.scrollY - offset;
-        window.scrollTo({ top, behavior: "smooth" });
+    anchor.addEventListener('click', (event) => {
+      const targetId = anchor.getAttribute('href');
+      if (targetId.length <= 1) return;
+
+      const targetEl = document.querySelector(targetId);
+      if (!targetEl) return;
+
+      event.preventDefault();
+      const targetY = targetEl.getBoundingClientRect().top + window.scrollY - NAV_HEIGHT + 1;
+
+      window.scrollTo({
+        top: targetY,
+        behavior: 'smooth'
+      });
+    });
+  });
+
+  /* ------------------------------------------------------------------
+     4. ANIMACIONES FADE-IN AL HACER SCROLL (IntersectionObserver)
+     ------------------------------------------------------------------ */
+  const fadeElements = document.querySelectorAll('.fade-in');
+
+  const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        // Pequeño escalonado según la posición dentro del contenedor
+        entry.target.classList.add('is-visible');
+        fadeObserver.unobserve(entry.target);
       }
     });
+  }, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -60px 0px'
   });
-
-  /* ============================================================
-     4. RESALTADO DE LA SECCIÓN ACTIVA EN EL MENÚ
-     ============================================================ */
-  const sectionObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const id = entry.target.getAttribute("id");
-          navLinks.forEach((link) => {
-            link.classList.toggle(
-              "is-active",
-              link.getAttribute("href") === `#${id}`
-            );
-          });
-        }
-      });
-    },
-    { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
-  );
-
-  sections.forEach((section) => {
-    if (section.id) sectionObserver.observe(section);
-  });
-
-  /* ============================================================
-     5. ANIMACIONES FADE-IN AL HACER SCROLL
-     ============================================================ */
-  const fadeObserver = new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.15 }
-  );
 
   fadeElements.forEach((el) => fadeObserver.observe(el));
 
-  /* ============================================================
-     6. BOTÓN FLOTANTE "VOLVER ARRIBA"
-     ============================================================ */
-  function handleBackToTop() {
-    if (window.scrollY > 480) {
-      backToTop.classList.add("is-visible");
-    } else {
-      backToTop.classList.remove("is-visible");
-    }
-  }
-  handleBackToTop();
-  window.addEventListener("scroll", handleBackToTop, { passive: true });
+  /* ------------------------------------------------------------------
+     5. RESALTADO AUTOMÁTICO DE LA SECCIÓN ACTIVA EN EL MENÚ
+     ------------------------------------------------------------------ */
+  const sections = document.querySelectorAll('main section[id], .hero[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
 
-  backToTop.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const setActiveLink = (id) => {
+    navLinks.forEach((link) => {
+      link.classList.toggle('is-active', link.getAttribute('href') === `#${id}`);
+    });
+  };
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        setActiveLink(entry.target.id);
+      }
+    });
+  }, {
+    threshold: 0,
+    rootMargin: `-${NAV_HEIGHT + 40}px 0px -60% 0px`
   });
 
-  /* ============================================================
-     7. CONVERSIÓN AUTOMÁTICA DE ENLACES DE GOOGLE DRIVE
-     Esta función queda disponible para convertir dinámicamente
-     cualquier enlace de Google Drive con formato:
-       https://drive.google.com/file/d/ID/view...
-     al formato embebido:
-       https://drive.google.com/file/d/ID/preview
-     Todos los iframes del HTML ya usan el formato /preview,
-     pero esta utilidad permite generar el enlace si se agregan
-     videos nuevos dinámicamente en el futuro.
-     ============================================================ */
-  function convertirEnlaceDrive(url) {
-    const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-    if (!match) return url;
-    const id = match[1];
-    return `https://drive.google.com/file/d/${id}/preview`;
-  }
-  // Se expone globalmente por si se necesita reutilizar.
-  window.convertirEnlaceDrive = convertirEnlaceDrive;
+  sections.forEach((section) => {
+    if (section.id !== 'top') sectionObserver.observe(section);
+  });
+
+  /* ------------------------------------------------------------------
+     6. BOTÓN "VOLVER ARRIBA"
+     ------------------------------------------------------------------ */
+  const backToTop = document.getElementById('backToTop');
+
+  const toggleBackToTop = () => {
+    backToTop.classList.toggle('is-visible', window.scrollY > 600);
+  };
+  toggleBackToTop();
+  window.addEventListener('scroll', toggleBackToTop, { passive: true });
+
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ------------------------------------------------------------------
+     7. LAZY LOADING DE IFRAMES DE VIDEO (Google Drive)
+        Los iframes inician con src="about:blank" y solo cargan el
+        video real (data-src) cuando entran en el viewport.
+     ------------------------------------------------------------------ */
+  const videoFrames = document.querySelectorAll('.video-item__frame iframe[data-src]');
+
+  const iframeObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const iframe = entry.target;
+        iframe.src = iframe.dataset.src;
+        iframe.removeAttribute('data-src');
+        iframeObserver.unobserve(iframe);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '200px 0px 200px 0px'
+  });
+
+  videoFrames.forEach((iframe) => iframeObserver.observe(iframe));
 
 });

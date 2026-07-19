@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Consistencia Lógica en Sistemas Domóticos e IoT</title>
-<meta name="description" content="Exposición universitaria sobre la consistencia lógica aplicada a la domótica e Internet de las Cosas.">
+<title>Consistencia Lógica en Sistemas Domóticos</title>
+<meta name="description" content="Exposición universitaria sobre consistencia lógica aplicada a la domótica e Internet de las Cosas (IoT).">
 
 <!-- Fuentes -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -18,19 +18,19 @@
 </head>
 <body>
 
-<!-- ===================== NAVBAR ===================== -->
+<!-- ============ NAVBAR ============ -->
 <header class="navbar" id="navbar">
   <div class="navbar__inner">
-    <a href="#hero" class="navbar__brand">
-      <i class="fa-solid fa-house-signal"></i>
-      <span>Consistencia Lógica</span>
+    <a href="#top" class="navbar__brand">
+      <span class="navbar__mark">CL</span>
+      <span class="navbar__brand-text">Consistencia Lógica</span>
     </a>
 
-    <button class="navbar__toggle" id="navToggle" aria-label="Abrir menú">
-      <i class="fa-solid fa-bars"></i>
+    <button class="navbar__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
     </button>
 
-    <nav class="navbar__links" id="navLinks">
+    <nav class="navbar__nav" id="navMenu">
       <a href="#introduccion" class="nav-link">Introducción</a>
       <a href="#concepto" class="nav-link">Concepto</a>
       <a href="#tipos" class="nav-link">Tipos</a>
@@ -45,109 +45,101 @@
   </div>
 </header>
 
-<!-- ===================== HERO ===================== -->
-<section class="hero" id="hero">
-  <div class="hero__glow" aria-hidden="true"></div>
-  <div class="hero__content fade-in">
-    <span class="hero__eyebrow">Exposición Universitaria</span>
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero__bg" aria-hidden="true">
+    <span class="hero__token hero__token--p">P</span>
+    <span class="hero__token hero__token--np">¬P</span>
+    <div class="hero__grid"></div>
+  </div>
+
+  <div class="hero__inner fade-in">
+    <p class="eyebrow">Exposición · Lógica Proposicional aplicada a IoT</p>
     <h1 class="hero__title">Consistencia Lógica en Sistemas Domóticos</h1>
-    <p class="hero__subtitle">
-      Aplicación de la lógica proposicional para garantizar hogares inteligentes
-      seguros, eficientes y coherentes.
-    </p>
-    <a href="#introduccion" class="btn btn--primary hero__cta">
-      Ver presentación <i class="fa-solid fa-arrow-down"></i>
+    <p class="hero__subtitle">Aplicación de la lógica proposicional para garantizar hogares inteligentes seguros, eficientes y coherentes.</p>
+    <a href="#introduccion" class="btn btn--primary" id="heroCta">
+      Ver presentación
+      <i class="fa-solid fa-arrow-down-long"></i>
     </a>
+  </div>
+
+  <div class="hero__scroll-hint" aria-hidden="true">
+    <span></span>
   </div>
 </section>
 
 <main>
 
-  <!-- ===================== INTRODUCCIÓN ===================== -->
+  <!-- ============ INTRODUCCIÓN ============ -->
   <section class="section" id="introduccion">
-    <div class="section__inner fade-in">
-      <span class="section__label">01 — Introducción</span>
-      <h2 class="section__title">Un hogar, muchas decisiones</h2>
-      <p class="section__text">
-        En la actualidad con el avance de la tecnología, han surgido numerosos
-        dispositivos electrónicos que se integran al hogar para automatizar tareas
-        del mismo. Pero esta interconexión exige garantizar que las decisiones de
-        cada dispositivo no se contradigan entre sí, y ahí entra la
-        <strong>consistencia lógica</strong>: un principio de la lógica proposicional
-        que garantiza sistemas domóticos coherentes y confiables.
-      </p>
-    </div>
-  </section>
-
-  <!-- ===================== CONCEPTO ===================== -->
-  <section class="section section--alt" id="concepto">
-    <div class="section__inner fade-in">
-      <span class="section__label">02 — Concepto</span>
-      <h2 class="section__title">¿Qué es la consistencia lógica?</h2>
-      <p class="section__text">
-        En lógica computacional, un sistema es consistente cuando el conjunto de
-        reglas y estados que lo gobiernan no produce contradicciones. Es decir,
-        el sistema nunca puede afirmar que algo es verdadero y falso al mismo tiempo.
-      </p>
-      <p class="section__text">
-        Esta propiedad es fundamental en cualquier sistema que deba tomar decisiones
-        automáticas, ya que una contradicción en la lógica interna puede llevar a
-        comportamientos inesperados, fallos de seguridad y resultados incorrectos.
-      </p>
-    </div>
-  </section>
-
-  <!-- ===================== TIPOS ===================== -->
-  <section class="section" id="tipos">
-    <div class="section__inner fade-in">
-      <span class="section__label">03 — Tipos</span>
-      <h2 class="section__title">Tipos de consistencia</h2>
-
-      <div class="grid grid--4">
-        <div class="card fade-in">
-          <div class="card__icon"><i class="fa-solid fa-lock"></i></div>
-          <h3 class="card__title">Consistencia Estática</h3>
-          <p class="card__text">
-            Garantiza que las reglas y estados definidos del sistema no se
-            contradigan entre sí en un momento dado, sin importar el orden de evaluación.
-          </p>
-        </div>
-
-        <div class="card fade-in">
-          <div class="card__icon"><i class="fa-solid fa-arrows-spin"></i></div>
-          <h3 class="card__title">Consistencia Dinámica</h3>
-          <p class="card__text">
-            Asegura que, a medida que el sistema cambia de estado en tiempo real,
-            las nuevas decisiones sigan siendo coherentes con las anteriores.
-          </p>
-        </div>
-
-        <div class="card fade-in">
-          <div class="card__icon"><i class="fa-solid fa-microchip"></i></div>
-          <h3 class="card__title">Consistencia de Dispositivos</h3>
-          <p class="card__text">
-            Verifica que dispositivos de distintas marcas y protocolos actúen
-            de manera compatible entre sí, evitando órdenes opuestas.
-          </p>
-        </div>
-
-        <div class="card fade-in">
-          <div class="card__icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
-          <h3 class="card__title">Consistencia Temporal</h3>
-          <p class="card__text">
-            Controla que las acciones ejecutadas en distintos momentos del tiempo
-            mantengan un hilo lógico coherente y no se contradigan con el pasado.
-          </p>
-        </div>
+    <div class="section__inner">
+      <p class="section__eyebrow fade-in">01 — Punto de partida</p>
+      <h2 class="section__title fade-in">Introducción</h2>
+      <div class="section__body fade-in">
+        <p>En la actualidad, con el avance de la tecnología, han surgido numerosos dispositivos electrónicos que se integran al hogar para automatizar tareas del mismo. Pero esta interconexión exige garantizar que las decisiones de cada dispositivo no se contradigan entre sí, y ahí entra la <strong>consistencia lógica</strong>: un principio de la lógica proposicional que garantiza sistemas domóticos coherentes y confiables.</p>
       </div>
     </div>
   </section>
 
-  <!-- ===================== CARACTERÍSTICAS ===================== -->
-  <section class="section section--alt" id="caracteristicas">
-    <div class="section__inner fade-in">
-      <span class="section__label">04 — Características</span>
-      <h2 class="section__title">Beneficios de un sistema consistente</h2>
+  <!-- ============ CONCEPTO ============ -->
+  <section class="section section--tinted" id="concepto">
+    <div class="section__inner">
+      <p class="section__eyebrow fade-in">02 — Definición</p>
+      <h2 class="section__title fade-in">Concepto</h2>
+      <div class="section__body fade-in">
+        <p>En lógica computacional, un sistema es <strong>consistente</strong> cuando el conjunto de reglas y estados que lo gobiernan no produce contradicciones. Es decir, el sistema nunca puede afirmar que algo es verdadero y falso al mismo tiempo.</p>
+        <p>Esta propiedad es fundamental en cualquier sistema que deba tomar decisiones automáticas, ya que una contradicción en la lógica interna puede llevar a comportamientos inesperados, fallos de seguridad y resultados incorrectos.</p>
+      </div>
+
+      <div class="formula-card fade-in">
+        <div class="formula-card__row">
+          <span class="formula-card__tag">Regla de no contradicción</span>
+        </div>
+        <p class="formula-card__math">¬ (P ∧ ¬P)</p>
+        <p class="formula-card__caption">Un sistema consistente nunca permite que una proposición y su negación sean verdaderas simultáneamente.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TIPOS ============ -->
+  <section class="section" id="tipos">
+    <div class="section__inner">
+      <p class="section__eyebrow fade-in">03 — Clasificación</p>
+      <h2 class="section__title fade-in">Tipos de consistencia</h2>
+
+      <div class="card-grid">
+        <article class="card fade-in">
+          <div class="card__icon"><i class="fa-solid fa-database"></i></div>
+          <h3 class="card__title">Consistencia Estática</h3>
+          <p class="card__text">Garantiza que el estado inicial y las reglas configuradas del sistema no se contradigan entre sí antes de que ocurra cualquier evento.</p>
+        </article>
+
+        <article class="card fade-in">
+          <div class="card__icon"><i class="fa-solid fa-arrows-spin"></i></div>
+          <h3 class="card__title">Consistencia Dinámica</h3>
+          <p class="card__text">Asegura que, a medida que el sistema cambia de estado en tiempo real, cada transición mantenga la coherencia lógica general.</p>
+        </article>
+
+        <article class="card fade-in">
+          <div class="card__icon"><i class="fa-solid fa-house-signal"></i></div>
+          <h3 class="card__title">Consistencia de Dispositivos</h3>
+          <p class="card__text">Evita que dispositivos distintos —de diferentes marcas o protocolos— ejecuten acciones opuestas dentro del mismo entorno.</p>
+        </article>
+
+        <article class="card fade-in">
+          <div class="card__icon"><i class="fa-regular fa-clock"></i></div>
+          <h3 class="card__title">Consistencia Temporal</h3>
+          <p class="card__text">Verifica que las decisiones tomadas en distintos momentos del tiempo no entren en conflicto con decisiones previas o futuras.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CARACTERÍSTICAS ============ -->
+  <section class="section section--tinted" id="caracteristicas">
+    <div class="section__inner">
+      <p class="section__eyebrow fade-in">04 — Beneficios</p>
+      <h2 class="section__title fade-in">Características</h2>
 
       <ul class="feature-list">
         <li class="feature-list__item fade-in">
@@ -178,234 +170,217 @@
     </div>
   </section>
 
-  <!-- ===================== CASO REAL ===================== -->
+  <!-- ============ CASO REAL ============ -->
   <section class="section" id="caso-real">
-    <div class="section__inner fade-in">
-      <span class="section__label">05 — Caso Real</span>
-      <h2 class="section__title">Un caso de la vida real</h2>
+    <div class="section__inner">
+      <p class="section__eyebrow fade-in">05 — Ejemplo</p>
+      <h2 class="section__title fade-in">Descripción del caso de la vida real</h2>
 
-      <p class="section__text">
-        En una casa inteligente conviven dispositivos de distintas marcas: sensores,
-        cerraduras, alarmas, iluminación, aire acondicionado y ventanas automáticas.
-      </p>
-      <p class="section__text">
-        Cada uno posee reglas diferentes y protocolos distintos. Esto ocasiona que
-        algunos dispositivos ejecuten acciones contradictorias.
-      </p>
+      <div class="section__body fade-in">
+        <p>En una casa inteligente conviven dispositivos de distintas marcas: sensores, cerraduras, alarmas, iluminación, aire acondicionado y ventanas automáticas.</p>
+        <p>Cada uno posee reglas diferentes y protocolos distintos. Esto ocasiona que algunos dispositivos ejecuten acciones contradictorias.</p>
+      </div>
 
       <div class="conflict-illustration fade-in">
-        <div class="conflict-box">
+        <div class="conflict-device">
           <i class="fa-solid fa-snowflake"></i>
-          <span>Aire acondicionado encendido</span>
+          <p>Aire acondicionado</p>
+          <span class="conflict-state conflict-state--on">Encendido</span>
         </div>
-        <div class="conflict-vs">
+
+        <div class="conflict-badge">
           <i class="fa-solid fa-bolt"></i>
           <span>Inconsistencia lógica</span>
         </div>
-        <div class="conflict-box">
+
+        <div class="conflict-device">
           <i class="fa-solid fa-window-maximize"></i>
-          <span>Ventanas abiertas</span>
+          <p>Ventana</p>
+          <span class="conflict-state conflict-state--open">Abierta</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===================== APLICACIÓN ===================== -->
-  <section class="section section--alt" id="aplicacion">
-    <div class="section__inner fade-in">
-      <span class="section__label">06 — Aplicación</span>
-      <h2 class="section__title">Dónde se aplican los conceptos lógicos</h2>
+  <!-- ============ APLICACIÓN ============ -->
+  <section class="section section--tinted" id="aplicacion">
+    <div class="section__inner">
+      <p class="section__eyebrow fade-in">06 — En la práctica</p>
+      <h2 class="section__title fade-in">Dónde se aplican los conceptos lógicos</h2>
 
-      <p class="section__text">
-        Cada regla de un dispositivo representa una <strong>proposición lógica</strong>.
-      </p>
-
-      <div class="rule-box fade-in">
-        <p><i class="fa-solid fa-temperature-high"></i> Si hace calor → encender aire acondicionado.</p>
-        <p><i class="fa-solid fa-window-restore"></i> Si la ventana está abierta → apagar aire acondicionado.</p>
+      <div class="section__body fade-in">
+        <p>Cada regla de un dispositivo representa una <strong>proposición lógica</strong>. La lógica proposicional permite combinar estas reglas evitando que se generen contradicciones entre ellas.</p>
       </div>
 
-      <p class="section__text">
-        La lógica proposicional permite combinar estas reglas mediante conectores
-        lógicos (Y, O, NO, SI-ENTONCES), evaluando el conjunto completo antes de
-        ejecutar una acción, de modo que se evite activar reglas que se contradigan
-        entre sí.
-      </p>
+      <div class="rule-chain fade-in">
+        <div class="rule-card">
+          <span class="rule-card__label">Regla A</span>
+          <p>Si hace calor <i class="fa-solid fa-arrow-right"></i> encender aire acondicionado</p>
+        </div>
+        <div class="rule-chain__connector"><i class="fa-solid fa-link"></i></div>
+        <div class="rule-card">
+          <span class="rule-card__label">Regla B</span>
+          <p>Si la ventana está abierta <i class="fa-solid fa-arrow-right"></i> apagar aire acondicionado</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ===================== FALLA LÓGICA ===================== -->
+  <!-- ============ FALLA LÓGICA ============ -->
   <section class="section" id="falla-logica">
-    <div class="section__inner fade-in">
-      <span class="section__label">07 — Falla Lógica</span>
-      <h2 class="section__title">Cuando el sistema se contradice</h2>
+    <div class="section__inner">
+      <p class="section__eyebrow fade-in">07 — El problema</p>
+      <h2 class="section__title fade-in">Falla lógica</h2>
 
-      <p class="section__text">
-        La ausencia de consistencia lógica provoca estados incompatibles dentro
-        del sistema. Cuando dos reglas activas producen conclusiones opuestas,
-        el sistema entra en un estado inconsistente.
-      </p>
-
-      <div class="logic-formula fade-in">
-        <span>P</span>
-        <span class="logic-formula__and">∧</span>
-        <span>¬P</span>
+      <div class="section__body fade-in">
+        <p>La ausencia de consistencia lógica provoca estados incompatibles dentro del sistema domótico.</p>
       </div>
 
-      <p class="section__text">
-        Es decir, el sistema afirma una proposición <strong>P</strong> y, al mismo
-        tiempo, su negación <strong>¬P</strong>. Esta contradicción vuelve al sistema
-        lógicamente inconsistente, ya que a partir de una contradicción se puede
-        derivar cualquier conclusión, haciendo que las decisiones automáticas
-        pierdan toda fiabilidad.
-      </p>
+      <div class="fault-card fade-in">
+        <p class="fault-card__math">P <span>∧</span> ¬P</p>
+        <p class="fault-card__caption">Cuando una proposición y su negación se cumplen al mismo tiempo, el sistema entra en un estado inconsistente: dos reglas activas exigen resultados opuestos y ninguna puede prevalecer de forma confiable. Esto vuelve al sistema impredecible.</p>
+      </div>
     </div>
   </section>
 
-  <!-- ===================== SOLUCIÓN ===================== -->
-  <section class="section section--alt" id="solucion">
-    <div class="section__inner fade-in">
-      <span class="section__label">08 — Solución</span>
-      <h2 class="section__title">Un orquestador inteligente</h2>
+  <!-- ============ SOLUCIÓN ============ -->
+  <section class="section section--tinted" id="solucion">
+    <div class="section__inner">
+      <p class="section__eyebrow fade-in">08 — Propuesta</p>
+      <h2 class="section__title fade-in">Solución</h2>
 
-      <p class="section__text">
-        La solución consiste en implementar un <strong>Orquestador Inteligente</strong>
-        basado en Inteligencia Artificial, capaz de centralizar y coordinar las
-        decisiones de todos los dispositivos del hogar.
-      </p>
+      <div class="section__body fade-in">
+        <p>La solución consiste en implementar un <strong>Orquestador Inteligente</strong> basado en Inteligencia Artificial, capaz de mediar entre todas las reglas activas del hogar y resolver conflictos antes de que se ejecuten.</p>
+      </div>
 
-      <p class="section__text">Este orquestador:</p>
-
-      <ul class="feature-list">
-        <li class="feature-list__item fade-in">
-          <i class="fa-solid fa-circle-check"></i>
-          <span>Recibe información de todos los dispositivos</span>
-        </li>
-        <li class="feature-list__item fade-in">
-          <i class="fa-solid fa-circle-check"></i>
-          <span>Aprende hábitos del usuario</span>
-        </li>
-        <li class="feature-list__item fade-in">
-          <i class="fa-solid fa-circle-check"></i>
-          <span>Analiza reglas activas</span>
-        </li>
-        <li class="feature-list__item fade-in">
-          <i class="fa-solid fa-circle-check"></i>
-          <span>Determina el estado más coherente</span>
-        </li>
-        <li class="feature-list__item fade-in">
-          <i class="fa-solid fa-circle-check"></i>
-          <span>Evita conflictos</span>
-        </li>
-        <li class="feature-list__item fade-in">
-          <i class="fa-solid fa-circle-check"></i>
-          <span>Mejora la eficiencia y aumenta la seguridad</span>
-        </li>
-      </ul>
-
-      <!-- Diagrama simple con HTML/CSS -->
-      <div class="diagram fade-in">
-        <div class="diagram__node">
+      <div class="solution-grid fade-in">
+        <div class="solution-point">
           <i class="fa-solid fa-satellite-dish"></i>
+          <p>Recibe información de todos los dispositivos</p>
+        </div>
+        <div class="solution-point">
+          <i class="fa-solid fa-brain"></i>
+          <p>Aprende hábitos del usuario</p>
+        </div>
+        <div class="solution-point">
+          <i class="fa-solid fa-list-check"></i>
+          <p>Analiza las reglas activas</p>
+        </div>
+        <div class="solution-point">
+          <i class="fa-solid fa-scale-balanced"></i>
+          <p>Determina el estado más coherente</p>
+        </div>
+        <div class="solution-point">
+          <i class="fa-solid fa-shield-halved"></i>
+          <p>Evita conflictos entre dispositivos</p>
+        </div>
+        <div class="solution-point">
+          <i class="fa-solid fa-gauge-high"></i>
+          <p>Mejora la eficiencia y la seguridad</p>
+        </div>
+      </div>
+
+      <!-- Diagrama HTML/CSS -->
+      <div class="diagram fade-in" aria-label="Diagrama: Sensores, Orquestador IA, Dispositivos">
+        <div class="diagram__node">
+          <i class="fa-solid fa-microchip"></i>
           <span>Sensores</span>
         </div>
-        <div class="diagram__arrow"><i class="fa-solid fa-arrow-down"></i></div>
-        <div class="diagram__node diagram__node--highlight">
-          <i class="fa-solid fa-brain"></i>
+        <div class="diagram__arrow"><span></span><i class="fa-solid fa-chevron-down"></i></div>
+        <div class="diagram__node diagram__node--main">
+          <i class="fa-solid fa-robot"></i>
           <span>Orquestador IA</span>
         </div>
-        <div class="diagram__arrow"><i class="fa-solid fa-arrow-down"></i></div>
+        <div class="diagram__arrow"><span></span><i class="fa-solid fa-chevron-down"></i></div>
         <div class="diagram__node">
-          <i class="fa-solid fa-house-chimney-window"></i>
+          <i class="fa-solid fa-lightbulb"></i>
           <span>Dispositivos</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===================== PRIMERA PARTE ===================== -->
-  <section class="section section--videos" id="primera-parte">
-    <div class="section__inner fade-in">
-      <span class="section__label">09 — Primera Parte</span>
-      <h2 class="section__title">Presentación en video</h2>
-      <p class="section__text">Exposición grabada del grupo, tema por tema.</p>
+  <!-- ============ PRIMERA PARTE ============ -->
+  <section class="section section--video" id="primera-parte">
+    <div class="section__inner">
+      <p class="section__eyebrow fade-in">Presentación · Bloque 1</p>
+      <h2 class="section__title fade-in">Primera Parte</h2>
 
       <div class="video-list">
 
         <article class="video-item fade-in">
-          <div class="video-item__info">
+          <div class="video-item__text">
             <h3>Introducción, Concepto y Tipos</h3>
-            <p class="video-item__author"><i class="fa-solid fa-user"></i> Carlos Vélez</p>
+            <p class="video-item__author"><i class="fa-regular fa-user"></i> Carlos Vélez</p>
+            <p>Presentación de los fundamentos de la consistencia lógica y su clasificación dentro de los sistemas domóticos.</p>
           </div>
-          <div class="video-wrapper">
-            <iframe src="https://drive.google.com/file/d/101XEL86I6L6KJS9qAc_G7UlMXch9viiS/preview"
-              loading="lazy" allow="autoplay" allowfullscreen></iframe>
+          <div class="video-item__frame">
+            <iframe loading="lazy" src="about:blank" data-src="https://drive.google.com/file/d/101XEL86I6L6KJS9qAc_G7UlMXch9viiS/preview" allow="autoplay" allowfullscreen title="Introducción, Concepto y Tipos"></iframe>
           </div>
         </article>
 
-        <article class="video-item fade-in">
-          <div class="video-item__info">
+        <article class="video-item fade-in video-item--reverse">
+          <div class="video-item__text">
             <h3>Características</h3>
-            <p class="video-item__author"><i class="fa-solid fa-user"></i> Ezequiel Romero</p>
+            <p class="video-item__author"><i class="fa-regular fa-user"></i> Ezequiel Romero</p>
+            <p>Repaso de las características principales que aporta la consistencia lógica a un hogar inteligente.</p>
           </div>
-          <div class="video-wrapper">
-            <iframe src="https://drive.google.com/file/d/1DHE6U5Ow-rGCdNU1mNyCpudKyJlonqC-/preview"
-              loading="lazy" allow="autoplay" allowfullscreen></iframe>
+          <div class="video-item__frame">
+            <iframe loading="lazy" src="about:blank" data-src="https://drive.google.com/file/d/1DHE6U5Ow-rGCdNU1mNyCpudKyJlonqC-/preview" allow="autoplay" allowfullscreen title="Características"></iframe>
           </div>
         </article>
 
         <article class="video-item fade-in">
-          <div class="video-item__info">
+          <div class="video-item__text">
             <h3>Descripción del Caso</h3>
-            <p class="video-item__author"><i class="fa-solid fa-user"></i> Juan Esteves</p>
+            <p class="video-item__author"><i class="fa-regular fa-user"></i> Juan Esteves</p>
+            <p>Explicación del caso real de conflicto entre el aire acondicionado y las ventanas automáticas.</p>
           </div>
-          <div class="video-wrapper">
-            <iframe src="https://drive.google.com/file/d/1XuUTEeH7mk-pfFaMsJYFB_9RE-SygK8G/preview"
-              loading="lazy" allow="autoplay" allowfullscreen></iframe>
+          <div class="video-item__frame">
+            <iframe loading="lazy" src="about:blank" data-src="https://drive.google.com/file/d/1XuUTEeH7mk-pfFaMsJYFB_9RE-SygK8G/preview" allow="autoplay" allowfullscreen title="Descripción del Caso"></iframe>
+          </div>
+        </article>
+
+        <article class="video-item fade-in video-item--reverse">
+          <div class="video-item__text">
+            <h3>Dónde se aplican los conceptos lógicos</h3>
+            <p class="video-item__author"><i class="fa-regular fa-user"></i> Steven Boada</p>
+            <p>Cómo cada regla de un dispositivo se traduce en una proposición lógica dentro del sistema.</p>
+          </div>
+          <div class="video-item__frame">
+            <iframe loading="lazy" src="about:blank" data-src="https://drive.google.com/file/d/1HO9y67K5lLHxNkCRSkK2or-3BNMMCPkL/preview" allow="autoplay" allowfullscreen title="Dónde se aplican los conceptos lógicos"></iframe>
           </div>
         </article>
 
         <article class="video-item fade-in">
-          <div class="video-item__info">
-            <h3>Dónde se Aplican los Conceptos Lógicos</h3>
-            <p class="video-item__author"><i class="fa-solid fa-user"></i> Steven Boada</p>
+          <div class="video-item__text">
+            <h3>Falla lógica</h3>
+            <p class="video-item__author"><i class="fa-regular fa-user"></i> Mauricio</p>
+            <p>Análisis del problema que surge cuando P y ¬P se cumplen al mismo tiempo dentro del sistema.</p>
           </div>
-          <div class="video-wrapper">
-            <iframe src="https://drive.google.com/file/d/1HO9y67K5lLHxNkCRSkK2or-3BNMMCPkL/preview"
-              loading="lazy" allow="autoplay" allowfullscreen></iframe>
-          </div>
-        </article>
-
-        <article class="video-item fade-in">
-          <div class="video-item__info">
-            <h3>Falla Lógica</h3>
-            <p class="video-item__author"><i class="fa-solid fa-user"></i> Mauricio</p>
-          </div>
-          <div class="video-wrapper">
-            <iframe src="https://drive.google.com/file/d/1pVQ7g47GXzYu6aWZxxUgcIY1t-dTzLev/preview"
-              loading="lazy" allow="autoplay" allowfullscreen></iframe>
+          <div class="video-item__frame">
+            <iframe loading="lazy" src="about:blank" data-src="https://drive.google.com/file/d/1pVQ7g47GXzYu6aWZxxUgcIY1t-dTzLev/preview" allow="autoplay" allowfullscreen title="Falla lógica"></iframe>
           </div>
         </article>
 
-        <article class="video-item fade-in">
-          <div class="video-item__info">
+        <article class="video-item fade-in video-item--reverse">
+          <div class="video-item__text">
             <h3>Solución</h3>
-            <p class="video-item__author"><i class="fa-solid fa-user"></i> Luisandra Rivera</p>
+            <p class="video-item__author"><i class="fa-regular fa-user"></i> Luisandra Rivera</p>
+            <p>Presentación del Orquestador Inteligente como propuesta de solución al problema de inconsistencia.</p>
           </div>
-          <div class="video-wrapper">
-            <iframe src="https://drive.google.com/file/d/1tTMJuiB6F5gjTB-U-9dD3dbw5hH3NPAY/preview"
-              loading="lazy" allow="autoplay" allowfullscreen></iframe>
+          <div class="video-item__frame">
+            <iframe loading="lazy" src="about:blank" data-src="https://drive.google.com/file/d/1tTMJuiB6F5gjTB-U-9dD3dbw5hH3NPAY/preview" allow="autoplay" allowfullscreen title="Solución"></iframe>
           </div>
         </article>
 
         <article class="video-item video-item--final fade-in">
-          <div class="video-item__info">
+          <div class="video-item__text">
             <h3>Video Final — Primera Parte</h3>
-            <p class="video-item__author"><i class="fa-solid fa-star"></i> Cierre del grupo</p>
+            <p>Cierre y recapitulación de los temas abordados en el primer bloque de la exposición.</p>
           </div>
-          <div class="video-wrapper">
-            <iframe src="https://drive.google.com/file/d/1jzuIxTibyzgSrEWgWSbfJAxPYDCbeEnS/preview"
-              loading="lazy" allow="autoplay" allowfullscreen></iframe>
+          <div class="video-item__frame">
+            <iframe loading="lazy" src="about:blank" data-src="https://drive.google.com/file/d/1jzuIxTibyzgSrEWgWSbfJAxPYDCbeEnS/preview" allow="autoplay" allowfullscreen title="Video Final Primera Parte"></iframe>
           </div>
         </article>
 
@@ -413,72 +388,71 @@
     </div>
   </section>
 
-  <!-- ===================== SEGUNDA PARTE ===================== -->
-  <section class="section section--videos section--alt" id="segunda-parte">
-    <div class="section__inner fade-in">
-      <span class="section__label">10 — Segunda Parte</span>
-      <h2 class="section__title">Profundizando en la solución</h2>
-      <p class="section__text">Segunda ronda de presentaciones del grupo.</p>
+  <!-- ============ SEGUNDA PARTE ============ -->
+  <section class="section section--video section--tinted" id="segunda-parte">
+    <div class="section__inner">
+      <p class="section__eyebrow fade-in">Presentación · Bloque 2</p>
+      <h2 class="section__title fade-in">Segunda Parte</h2>
 
       <div class="video-list">
 
         <article class="video-item fade-in">
-          <div class="video-item__info">
-            <h3>Diferencia entre Antes y Después</h3>
+          <div class="video-item__text">
+            <h3>Diferencia entre antes y después</h3>
+            <p>Comparación del sistema domótico sin y con el Orquestador Inteligente aplicado.</p>
           </div>
-          <div class="video-wrapper">
-            <iframe src="https://drive.google.com/file/d/1DAeNp3uv6Ilp0d1klZjcsYQWTCFFouwW/preview"
-              loading="lazy" allow="autoplay" allowfullscreen></iframe>
+          <div class="video-item__frame">
+            <iframe loading="lazy" src="about:blank" data-src="https://drive.google.com/file/d/1DAeNp3uv6Ilp0d1klZjcsYQWTCFFouwW/preview" allow="autoplay" allowfullscreen title="Diferencia entre antes y después"></iframe>
+          </div>
+        </article>
+
+        <article class="video-item fade-in video-item--reverse">
+          <div class="video-item__text">
+            <h3>Cómo funciona</h3>
+            <p>Explicación del funcionamiento interno del orquestador y su proceso de decisión.</p>
+          </div>
+          <div class="video-item__frame">
+            <iframe loading="lazy" src="about:blank" data-src="https://drive.google.com/file/d/1a8IhGjgTC9AJ1s4LdON1ZhRhoww_lO8t/preview" allow="autoplay" allowfullscreen title="Cómo funciona"></iframe>
           </div>
         </article>
 
         <article class="video-item fade-in">
-          <div class="video-item__info">
-            <h3>Cómo Funciona</h3>
+          <div class="video-item__text">
+            <h3>Función de la fase 1 y 2</h3>
+            <p>Detalle de las dos primeras fases del proceso del orquestador inteligente.</p>
           </div>
-          <div class="video-wrapper">
-            <iframe src="https://drive.google.com/file/d/1a8IhGjgTC9AJ1s4LdON1ZhRhoww_lO8t/preview"
-              loading="lazy" allow="autoplay" allowfullscreen></iframe>
+          <div class="video-item__frame">
+            <iframe loading="lazy" src="about:blank" data-src="https://drive.google.com/file/d/14vb90dJeySZmK_s1LHKd7aWxsKdwMkx6/preview" allow="autoplay" allowfullscreen title="Función de la fase 1 y 2"></iframe>
+          </div>
+        </article>
+
+        <article class="video-item fade-in video-item--reverse">
+          <div class="video-item__text">
+            <h3>Función de la fase 3 y 4</h3>
+            <p>Continuación con las fases finales del proceso de resolución de conflictos.</p>
+          </div>
+          <div class="video-item__frame">
+            <iframe loading="lazy" src="about:blank" data-src="https://drive.google.com/file/d/123usKArKSenl7vi7GdtE0EaBhJ-zQ1qs/preview" allow="autoplay" allowfullscreen title="Función de la fase 3 y 4"></iframe>
           </div>
         </article>
 
         <article class="video-item fade-in">
-          <div class="video-item__info">
-            <h3>Función de la Fase 1 y 2</h3>
+          <div class="video-item__text">
+            <h3>Cómo resuelve una inconsistencia</h3>
+            <p>Demostración práctica de la resolución de un conflicto lógico entre dispositivos.</p>
           </div>
-          <div class="video-wrapper">
-            <iframe src="https://drive.google.com/file/d/14vb90dJeySZmK_s1LHKd7aWxsKdwMkx6/preview"
-              loading="lazy" allow="autoplay" allowfullscreen></iframe>
-          </div>
-        </article>
-
-        <article class="video-item fade-in">
-          <div class="video-item__info">
-            <h3>Función de la Fase 3 y 4</h3>
-          </div>
-          <div class="video-wrapper">
-            <iframe src="https://drive.google.com/file/d/123usKArKSenl7vi7GdtE0EaBhJ-zQ1qs/preview"
-              loading="lazy" allow="autoplay" allowfullscreen></iframe>
+          <div class="video-item__frame">
+            <iframe loading="lazy" src="about:blank" data-src="https://drive.google.com/file/d/1900fPlvdb9H9GGqCyGLbYM7jC9FtRCD8/preview" allow="autoplay" allowfullscreen title="Cómo resuelve una inconsistencia"></iframe>
           </div>
         </article>
 
-        <article class="video-item fade-in">
-          <div class="video-item__info">
-            <h3>Cómo Resuelve una Inconsistencia</h3>
+        <article class="video-item fade-in video-item--reverse">
+          <div class="video-item__text">
+            <h3>Cómo representar a un orquestador</h3>
+            <p>Modelo visual y conceptual para representar al orquestador dentro del sistema domótico.</p>
           </div>
-          <div class="video-wrapper">
-            <iframe src="https://drive.google.com/file/d/1900fPlvdb9H9GGqCyGLbYM7jC9FtRCD8/preview"
-              loading="lazy" allow="autoplay" allowfullscreen></iframe>
-          </div>
-        </article>
-
-        <article class="video-item fade-in">
-          <div class="video-item__info">
-            <h3>Cómo Representar a un Orquestador</h3>
-          </div>
-          <div class="video-wrapper">
-            <iframe src="https://drive.google.com/file/d/1EdHyxVvtaTsQgKEKIpYUpeAMIOO3jHvu/preview"
-              loading="lazy" allow="autoplay" allowfullscreen></iframe>
+          <div class="video-item__frame">
+            <iframe loading="lazy" src="about:blank" data-src="https://drive.google.com/file/d/1EdHyxVvtaTsQgKEKIpYUpeAMIOO3jHvu/preview" allow="autoplay" allowfullscreen title="Cómo representar a un orquestador"></iframe>
           </div>
         </article>
 
@@ -488,19 +462,16 @@
 
 </main>
 
-<!-- ===================== FOOTER ===================== -->
+<!-- ============ FOOTER ============ -->
 <footer class="footer">
   <div class="footer__inner">
     <div class="footer__brand">
-      <i class="fa-solid fa-house-signal"></i>
-      <span>Consistencia Lógica en Sistemas Domóticos e IoT</span>
+      <span class="navbar__mark">CL</span>
+      <p>Consistencia Lógica en Sistemas Domóticos</p>
     </div>
-    <p class="footer__text">Exposición universitaria — Lógica Proposicional aplicada a la Domótica.</p>
-    <div class="footer__links">
-      <a href="#hero">Inicio</a>
-      <a href="#solucion">Solución</a>
-      <a href="#primera-parte">Videos</a>
-    </div>
+    <p class="footer__note">Exposición universitaria · Lógica proposicional aplicada a la Domótica e Internet de las Cosas (IoT)</p>
+    <div class="footer__divider"></div>
+    <p class="footer__credits">Elaborado por Carlos Vélez, Ezequiel Romero, Juan Esteves, Steven Boada, Mauricio &amp; Luisandra Rivera.</p>
   </div>
 </footer>
 
