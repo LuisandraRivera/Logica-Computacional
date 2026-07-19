@@ -38,7 +38,7 @@ http://localhost:8000
 6. **Caso Real** — ilustración del conflicto aire acondicionado / ventana.
 7. **Aplicación** — cómo cada regla es una proposición lógica.
 8. **Falla Lógica** — explicación del estado inconsistente (P ∧ ¬P).
-9. **Solución** — Orquestador Inteligente + diagrama Sensores → Orquestador IA → Dispositivos.
+9. **Solución** — Orquestador Inteligente + diagrama Sensores → Orquestador IA → Dispositivos + **simulador interactivo** que ejecuta en el navegador la lógica de los pseudocódigos PSeInt "Antes" y "Después" del orquestador.
 10. **Primera Parte** — videos horizontales embebidos vía iframe.
 11. **Segunda Parte** — videos horizontales embebidos vía iframe.
 12. **Footer**
@@ -59,6 +59,15 @@ http://localhost:8000
 - Menú responsive (hamburguesa) para móviles.
 - Botón flotante "volver arriba".
 - **Lazy loading** de los iframes de video: los videos de Google Drive solo cargan su `src` real cuando la sección entra en el viewport, mejorando el rendimiento inicial de la página.
+
+## Simulador del Orquestador (pseudocódigo ejecutable)
+
+Dentro de la sección **Solución** se incluye un simulador con dos pestañas, "Antes" y "Después", que traduce a JavaScript la lógica exacta de los archivos PSeInt del proyecto:
+
+- **Antes** (`OrquestadorLoT_-_casa_inteligente_antes_.psc`): permite ajustar temperatura, hora y el estado de ventanas, aire acondicionado, cerraduras y alarma. Reproduce el comportamiento original: el sistema solo *avisa* de las contradicciones, pero nunca las corrige (incluso desactiva la alarma automáticamente al poner las cerraduras).
+- **Después** (`OrquestadorLoT_-_casa_inteligente_despues_.psc`): permite elegir uno de los 5 escenarios de sensores definidos en el pseudocódigo original, además de la preferencia de ventilación y el modo de seguridad. Reproduce las 4 fases del orquestador (recepción de datos, aprendizaje, evaluación de reglas y reporte final), corrigiendo cada inconsistencia y mostrando el resumen de casos consistentes/inconsistentes.
+
+La salida de ambas simulaciones se muestra en una consola estilizada (`.terminal`) que reproduce, línea por línea, los mensajes `Escribir` del pseudocódigo original. Toda la lógica vive en `script.js`, sección **8. SIMULADOR DEL ORQUESTADOR**, y no depende de librerías externas ni de ejecutar PSeInt: es una reimplementación fiel en JavaScript vanilla.
 
 ## Videos de Google Drive
 
