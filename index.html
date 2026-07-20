@@ -355,6 +355,73 @@
               <div class="terminal__bar"><span></span><span></span><span></span><p>OrquestadorIoT_Antes.psc</p></div>
               <pre class="terminal__body">Presiona "Ejecutar simulación" para ver el resultado…</pre>
             </div>
+
+            <details class="code-view">
+              <summary>
+                <i class="fa-solid fa-code"></i>
+                <span>Ver pseudocódigo completo (PSeInt)</span>
+                <i class="fa-solid fa-chevron-down code-view__chevron"></i>
+              </summary>
+              <div class="code-view__body">
+                <div class="code-view__toolbar">
+                  <span>OrquestadorLoT_-_casa_inteligente_antes_.psc</span>
+                  <a href="orquestador-antes.psc" download class="code-view__download">
+                    <i class="fa-solid fa-download"></i> Descargar .psc
+                  </a>
+                </div>
+                <pre class="code-view__pre"><code>Proceso OrquestadorLoT_Antes
+	
+	Definir temperaturaActual Como Real;
+	Definir estadoVentanas, estadoAireAcondicionado, estadoCerraduras, estadoAlarmas Como Logico;
+	Definir horaDelSistema Como Entero;
+	
+	Escribir &quot;Ingrese la temperatura actual: &quot;;
+	Leer temperaturaActual;
+	
+	Escribir &quot;Ingrese la hora del sistema (0-23): &quot;;
+	Leer horaDelSistema;
+	
+	Escribir &quot;¿Las ventanas están abiertas? (Verdadero/Falso): &quot;;
+	Leer estadoVentanas;
+	
+	Escribir &quot;¿El aire acondicionado está encendido? (Verdadero/Falso): &quot;;
+	Leer estadoAireAcondicionado;
+	
+	Escribir &quot;¿Las cerraduras están puestas? (Verdadero/Falso): &quot;;
+	Leer estadoCerraduras;
+	
+	Escribir &quot;¿La alarma está activa? (Verdadero/Falso): &quot;;
+	Leer estadoAlarmas;
+	
+	// Inconsistencia 1: temperatura alta sin ninguna ventilación activa, y el sistema no hace nada
+	Si temperaturaActual &gt; 25 y estadoVentanas = Falso y estadoAireAcondicionado = Falso Entonces
+		Escribir &quot;Aviso: temperatura alta sin ventilación activa. El sistema no toma ninguna acción al respecto.&quot;;
+	FinSi
+	
+	// Inconsistencia 2: alarma activa sin que el sistema verifique ni ponga las cerraduras
+	Si estadoAlarmas = Verdadero y estadoCerraduras = Falso Entonces
+		Escribir &quot;Aviso: alarma activa con cerraduras sin poner. El sistema no coloca las cerraduras ni corrige la situación.&quot;;
+	FinSi
+	
+	// Inconsistencia 3: cerraduras puestas desactivan la alarma automáticamente (lógica contraria a la seguridad)
+	Si estadoCerraduras = Verdadero Entonces
+		estadoAlarmas &lt;- Falso;
+		Escribir &quot;Cerraduras puestas. Alarma desactivada automáticamente.&quot;;
+	FinSi
+	
+	Escribir &quot;-------------------------------------------&quot;;
+	Escribir &quot;Estado final de los dispositivos:&quot;;
+	Escribir &quot;Temperatura: &quot;, temperaturaActual;
+	Escribir &quot;Hora del sistema: &quot;, horaDelSistema;
+	Escribir &quot;Ventanas abiertas: &quot;, estadoVentanas;
+	Escribir &quot;Aire acondicionado encendido: &quot;, estadoAireAcondicionado;
+	Escribir &quot;Cerraduras puestas: &quot;, estadoCerraduras;
+	Escribir &quot;Alarma activa: &quot;, estadoAlarmas;
+	Escribir &quot;-------------------------------------------&quot;;
+
+FinProceso</code></pre>
+              </div>
+            </details>
           </div>
 
           <!-- ---- PANEL "DESPUÉS" ---- -->
@@ -396,6 +463,235 @@
               <div class="terminal__bar"><span></span><span></span><span></span><p>OrquestadorIoT.psc</p></div>
               <pre class="terminal__body">Presiona "Ejecutar orquestador" para ver el resultado…</pre>
             </div>
+
+            <details class="code-view">
+              <summary>
+                <i class="fa-solid fa-code"></i>
+                <span>Ver pseudocódigo completo (PSeInt)</span>
+                <i class="fa-solid fa-chevron-down code-view__chevron"></i>
+              </summary>
+              <div class="code-view__body">
+                <div class="code-view__toolbar">
+                  <span>OrquestadorLoT_-_casa_inteligente_despues_.psc</span>
+                  <a href="orquestador-despues.psc" download class="code-view__download">
+                    <i class="fa-solid fa-download"></i> Descargar .psc
+                  </a>
+                </div>
+                <pre class="code-view__pre"><code>Proceso OrquestadorLoT
+	Definir temperaturaActual Como Real;
+	Definir ventanas, airesacondicionados, cerraduras, alarmas, estadoVentanas, estadoAireAcondicionado, estadoCerraduras, estadoAlarmas, incosistenciasDectectadas Como Logico;
+	Definir i, opcion, indiceReporte, horas, temperaturas, horaDelSistema, ultimaHoraRegistrada, contadorInconsitencias, contadorConsistencias Como Entero;
+	Definir preferenciaUsuario, ultimaPreferenciaRegistrada, desicionTomada, modoSeguridad Como Cadena;
+	
+	// Simulacion de sensores a traves de arreglos con 5 escenarios predefinidos
+	Dimension horas[6];
+	dimension temperaturas[6];
+	dimension ventanas[6];
+	dimension airesAcondicionados[6];
+	dimension cerraduras[6];
+	dimension alarmas[6];
+	
+	
+	// 1er escenario para la simulacion de sensores: tarde calurosa, aire acondicionado encendido, y ventanas abiertas a la vez (inconsistencia)
+	horas[1]&lt;- 14;
+	temperaturas[1] &lt;- 30;
+	ventanas[1] &lt;- verdadero; //(verdadero: si, estan abiertas.  falso: no, estan cerradas)
+	airesAcondicionados[1] &lt;- Verdadero; //(verdadero: si, esta encendido.   falso: no, esta apagado)
+	cerraduras[1] &lt;- Verdadero; //(verdadero: si, estan puestas.   falso: no, estan sin poner)
+	alarmas[1] &lt;- falso; //(verdadero: si, estan activas.  falso: no, estan inactivas)
+	
+	// 2do escenario para la simulacion de sensores: noche, alarma activa, y cerraduras sin poner (inconsistencia)
+	horas[2] &lt;- 22;
+	temperaturas[2] &lt;- 20;
+	ventanas[2] &lt;- falso; //(verdadero: si, estan abiertas.  falso: no, estan cerradas)
+	airesAcondicionados[2] &lt;- falso; //(verdadero: si, esta encendido.   falso: no, esta apagado)
+	cerraduras[2] &lt;- falso; //(verdadero: si, estan puestas.   falso: no, estan sin poner)
+	alarmas[2] &lt;- Verdadero; //(verdadero: si, estan activas.  falso: no, estan inactivas)
+	
+	// 3er escenario para la simulacion de sensores: mañana, aire acondicionado apagado, ventanas abiertas (consistencia)
+	horas[3] &lt;- 8;
+	temperaturas[3] &lt;- 22;
+	ventanas[3] &lt;- verdadero; //(verdadero: si, estan abiertas.  falso: no, estan cerradas)
+	airesAcondicionados[3] &lt;- falso; //(verdadero: si, esta encendido.   falso: no, esta apagado)
+	cerraduras[3] &lt;- falso; //(verdadero: si, estan puestas.   falso: no, estan sin poner)
+	alarmas[3] &lt;- falso; //(verdadero: si, estan activas.  falso: no, estan inactivas)
+	
+	// 4to escenario para la simulacion de sensores: temperatura alta, ninguna ventilacion (inconsistencia)
+	horas[4] &lt;- 15;
+	temperaturas[4] &lt;- 28;
+	ventanas[4] &lt;- falso;  //(verdadero: si, estan abiertas.  falso: no, estan cerradas)
+	airesAcondicionados[4] &lt;- falso; //(verdadero: si, esta encendido.   falso: no, esta apagado)
+	cerraduras[4] &lt;- Verdadero; //(verdadero: si, estan puestas.   falso: no, estan sin poner)
+	alarmas[4] &lt;- falso; //(verdadero: si, estan activas.  falso: no, estan inactivas)
+	
+	// 5to escenario para la simulacion de sensores: alarma activa, cerraduras puestas (consistencia)
+	horas[5] &lt;- 23;
+	temperaturas[5] &lt;- 19;
+	ventanas[5] &lt;- Falso; //(verdadero: si, estan abiertas.  falso: no, estan cerradas)
+	airesAcondicionados[5] &lt;- falso; //(verdadero: si, esta encendido.   falso: no, esta apagado)
+	cerraduras[5] &lt;- verdadero; //(verdadero: si, estan puestas.   falso: no, estan sin poner)
+	alarmas[5] &lt;- Verdadero; //(verdadero: si, estan activas.  falso: no, estan inactivas)
+	
+	//Fase 1: recepción de datos
+	Escribir &quot;¿Cuál es tu preferencia para ventilar la casa? (Ventana/AireAcondicionado)&quot;;
+	Leer preferenciaUsuario;
+	Escribir &quot;¿Qué modo de seguridad prefieres? (SeguridadAlta/Balanceada)&quot;;
+	leer modoSeguridad;
+	
+	Escribir &quot;¿Que reporte deseas consultar?&quot;;
+	escribir &quot;1) Reporte 1&quot;;
+	escribir &quot;2) Reporte 2&quot;;
+	escribir &quot;3) Reporte 3&quot;;
+	escribir &quot;4) Reporte 4&quot;;
+	escribir &quot;5) Reporte 5&quot;;
+	leer opcion;
+	Mientras opcion &lt; 1 o opcion &gt; 5 Hacer
+		escribir &quot;opcion invalida. Por favor selecciona un numero entre 1 o 5&quot;;
+		leer opcion;
+	FinMientras
+	indiceReporte &lt;- opcion;
+	
+	ultimaHoraRegistrada &lt;- 0;
+	ultimaPreferenciaRegistrada &lt;- &quot;&quot;;
+	
+	escribir &quot;Sensor mostrando datos del reporte&quot;, indiceReporte, &quot;...&quot;;
+	temperaturaActual &lt;- temperaturas[indiceReporte];
+	estadoVentanas &lt;- ventanas[indiceReporte];
+	estadoAireAcondicionado &lt;- airesAcondicionados[indiceReporte];
+	estadoAlarmas &lt;- alarmas[indiceReporte];
+	horaDelSistema &lt;- horas[indiceReporte];
+	estadoCerraduras &lt;- cerraduras[indiceReporte];
+	
+	//Fase 2: Aprendizaje de rutinas
+	si horaDelSistema = ultimaHoraRegistrada Entonces
+		Escribir &quot;El sistema reconoce esta hora como habitual y se aplicará a tu preferencia: &quot;, preferenciaUsuario;
+	SiNo
+		preferenciaUsuario = &quot;AireAcondicionado&quot;;
+		Escribir &quot;Hora o preferencia no reconocida, por defecto se encenderá el aire acondicionado.&quot;;
+	FinSi
+	ultimaHoraRegistrada &lt;- horaDelSistema;
+	ultimaPreferenciaRegistrada &lt;- preferenciaUsuario;
+	//Fase 3: Evaluación de reglas logicas
+	incosistenciasDectectadas &lt;- Falso;
+	desicionTomada &lt;- &quot;Sin novedades&quot;;
+	contadorInconsitencias &lt;- 0;
+	contadorConsistencias &lt;- 0;
+	
+	//Caso 1: Aire acondicionado y ventanas abiertas
+	si estadoAireAcondicionado = Verdadero y estadoVentanas = Verdadero Entonces
+		incosistenciasDectectadas &lt;- Verdadero;
+		contadorInconsitencias &lt;- contadorInconsitencias +1;
+		si preferenciaUsuario = &quot;VentilacionNatural&quot; Entonces
+			estadoAireAcondicionado &lt;- Falso; //(verdadero: si, esta encendido.   falso: no, esta apagado)
+			desicionTomada &lt;- &quot;Inconsitencia: Aire acondicionado y ventanas abiertas a la vez. Aire acondicionado apagado, las ventanas se mantienen abiertas.&quot;;
+		SiNo
+			estadoVentanas &lt;- Falso; //(verdadero: si, estan abiertas.   falso: no, estan cerradas)
+			desicionTomada &lt;- &quot;Inconsistencia: Aire acondicionado y ventanas abiertas a las vez. Ventanas cerradas, el aire acondicionado se mantiene encendido.&quot;;
+		FinSi
+	SiNo
+		contadorConsistencias &lt;- contadorConsistencias +1;
+		si estadoAireAcondicionado = Verdadero y estadoVentanas = Falso Entonces
+			desicionTomada &lt;- &quot;Consistente: Aire acondicionado encendido con ventanas cerradas.&quot;;
+		SiNo
+			si estadoAireAcondicionado = Falso y estadoVentanas = Verdadero Entonces
+				desicionTomada &lt;- &quot;Consitente: Ventanas abiertas con aire acondicionado apagado.&quot;;
+			SiNo
+				desicionTomada &lt;- &quot;Consitente: Aire acondicionado apagado y ventanas cerradas, casa sin ventilacion activa.&quot;;
+			FinSi
+		FinSi
+	FinSi
+	
+	// Caso 2: Temperatura y ventilación
+	si temperaturaActual&gt;25 Entonces
+		si estadoVentanas = Falso y estadoAireAcondicionado = Falso Entonces
+			incosistenciasDectectadas &lt;- Verdadero;
+			contadorInconsitencias &lt;- contadorInconsitencias +1;
+			si preferenciaUsuario = &quot;VentilacionNatural&quot; Entonces
+				estadoVentanas &lt;- Verdadero; //(verdadero: si, estan abiertas.   falso: no, estan cerradas)
+				desicionTomada &lt;- &quot;Inconsistencia: Temperatura alta sin ventilación. vetanas abiertas por temperatura alta.&quot;;
+			SiNo
+				estadoAireAcondicionado &lt;- Verdadero; //(verdadero: si, esta encendido.   falso: no, esta apagado)
+				desicionTomada &lt;- &quot;Inconsistencia: Temperatura alta sin ventilación. Aire acondicionado encendidido por temperatura alta.&quot;;
+			FinSi
+		SiNo
+			si estadoVentanas = Verdadero y estadoAireAcondicionado = Falso Entonces
+				contadorConsistencias &lt;- contadorConsistencias +1;
+				desicionTomada &lt;- &quot;Consistente: Tempreatura alta, las ventanas están abiertas para ventilar.&quot;;
+			SiNo
+				si estadoVentanas = Falso y estadoAireAcondicionado = Verdadero Entonces
+					contadorConsistencias &lt;- contadorConsistencias +1;
+					desicionTomada &lt;- &quot; Consistente: Temperatura alta, el aire acondicionado ya esta encendido.&quot;;
+				SiNo
+					incosistenciasDectectadas &lt;- Verdadero;
+					contadorInconsitencias &lt;- contadorInconsitencias +1;
+					estadoVentanas &lt;- Falso; //(verdadero: si, estan abiertas.   falso: no, estan cerradas)
+					desicionTomada &lt;- &quot;Inconsitencia: Temperatura alta con aire acondicionado encendido y ventanas abiertas a la vez. Ventanas cerrandose para optimizar el aire.&quot;;
+					
+				FinSi
+			FinSi
+		FinSi
+	SiNo
+		si estadoVentanas = falso y estadoAireAcondicionado = falso Entonces
+			contadorConsistencias &lt;- contadorConsistencias +1;
+			desicionTomada &lt;- &quot;Consitente: Temperatura normal, sin necesidad de ventilación.&quot;;
+		SiNo
+			contadorConsistencias &lt;- contadorConsistencias +1;
+			desicionTomada &lt;- &quot; Consistente: Temperatura normal, ventilación activa por preferencia del usuario.&quot;;
+		FinSi
+	FinSi
+	
+	//Caso 3: Alarmas activas con cerraduras sin poner
+	si estadoAlarmas = Verdadero y estadoCerraduras = Falso  Entonces
+		incosistenciasDectectadas &lt;- Verdadero;
+		contadorInconsitencias &lt;- contadorInconsitencias +1;
+		estadoCerraduras &lt;- Verdadero; //(verdadero: si, estan puestas.   falso: no, estan sin poner)
+		estadoVentanas &lt;- falso; //(verdadero: si, estan abiertas.   falso: no, estan cerradas)
+		desicionTomada &lt;- &quot;Inconsistencia: Alarma activa con cerraduras sin colocar. Cerraduras colocadas y ventanas cerradas como medidas de seguridad.&quot;;
+	FinSi
+	
+	//Caso 4: Alarma inactiva y cerraduras sin poner
+	si estadoAlarmas = Falso y estadoCerraduras = Falso  Entonces
+		incosistenciasDectectadas &lt;- Verdadero;
+		contadorInconsitencias &lt;- contadorInconsitencias +1;
+		si modoSeguridad = &quot;SeguridadAlta&quot; Entonces
+			estadoCerraduras &lt;- verdadero; //(verdadero: si, estan puestas.   falso: no, estan sin poner)
+			desicionTomada &lt;- &quot;Incositencia: Cerraduras sin colocar sin alarma activa. Cerraduras puestas por seguridad (modo seguridad alta).&quot;;
+		SiNo
+			desicionTomada&lt;- &quot;Inconsistencia: Cerraduras sin colocar sin alarma activa. Se mantienen abiertas por preferencia de modo balanceado, se recomienda revisar.&quot;;
+		FinSi
+		
+	FinSi
+	
+	//Caso 5: Alarma activa con cerraduras puestas
+	si estadoAlarmas = Verdadero y estadoCerraduras = Verdadero Entonces
+		contadorConsistencias &lt;- contadorConsistencias +1;
+		desicionTomada &lt;- &quot;Consitente: Alarma activa y cerraduras puestas. Casa Segura.&quot;;
+	FinSi
+	
+	//Fase 4 Registro y salida
+	Escribir &quot;-------------------------------------------&quot;;
+	Escribir &quot;Reporte del Operador LoT&quot;;
+	Escribir &quot;-------------------------------------------&quot;;
+	Escribir &quot;Temperatura actual: &quot;, temperaturaActual;
+	Escribir &quot;Ventanas abiertas: &quot;, estadoVentanas;
+	Escribir &quot;Aire acondicionado encendido: &quot;, estadoAireAcondicionado;
+	Escribir &quot;Cerraduras puestas: &quot;, estadoCerraduras;
+	Escribir &quot;Alarma activa: &quot;, estadoAlarmas;
+	Escribir &quot;Hora del sistema: &quot;, horaDelSistema;
+	Escribir &quot;-------------------------------------------&quot;;
+	si incosistenciasDectectadas = Verdadero Entonces
+		Escribir &quot;Inconsistencia detectadas y corregidas.&quot;;
+		Escribir &quot;Desicion tomada: &quot;, desicionTomada;
+	SiNo
+		Escribir &quot;No se detectaron inconsistencias. Estado de la casa: consitente.&quot;;
+	FinSi
+	Escribir &quot;-------------------------------------------&quot;;
+	Escribir &quot;Resumen del análisis: &quot;;
+	Escribir &quot;Casos consitentes: &quot;, contadorConsistencias;
+	Escribir &quot;Casos incosistentes (corregidos): &quot;, contadorInconsitencias;
+FinProceso</code></pre>
+              </div>
+            </details>
           </div>
         </div>
       </div>
@@ -540,7 +836,7 @@
 
         <article class="video-item fade-in video-item--reverse">
           <div class="video-item__text">
-            <h3>Cómo representa a un orquestador</h3>
+            <h3>Cómo representar a un orquestador</h3>
             <p>Modelo visual y conceptual para representar al orquestador dentro del sistema domótico.</p>
           </div>
           <div class="video-item__frame">
@@ -561,7 +857,7 @@
       <span class="navbar__mark">CL</span>
       <p>Consistencia Lógica en Sistemas Domóticos</p>
     </div>
-    <p class="footer__note">Universidad Nacional Experimental de Guayana</p>
+    <p class="footer__note">Exposición universitaria · Lógica proposicional aplicada a la Domótica e Internet de las Cosas (IoT)</p>
     <div class="footer__divider"></div>
     <p class="footer__credits">Elaborado por Carlos Vélez, Ezequiel Romero, Juan Esteves, Steven Boada, Mauricio Rodríguez &amp; Luisandra Rivera.</p>
   </div>
