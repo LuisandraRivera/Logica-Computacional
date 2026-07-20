@@ -8,10 +8,12 @@ Construida únicamente con **HTML5, CSS3 y JavaScript Vanilla** — sin framewor
 
 ```
 /
-│── index.html   → Estructura y contenido de todas las secciones
-│── style.css    → Estilos, tokens de diseño, animaciones y responsive
-│── script.js    → Interactividad (scroll, navbar, animaciones, videos)
-│── README.md    → Este archivo
+│── index.html               → Estructura y contenido de todas las secciones
+│── style.css                → Estilos, tokens de diseño, animaciones y responsive
+│── script.js                → Interactividad (scroll, navbar, animaciones, videos, simulador)
+│── orquestador-antes.psc    → Pseudocódigo original (PSeInt) — sistema sin orquestador
+│── orquestador-despues.psc  → Pseudocódigo original (PSeInt) — sistema con orquestador IA
+│── README.md                → Este archivo
 ```
 
 ## Cómo verla
@@ -68,6 +70,8 @@ Dentro de la sección **Solución** se incluye un simulador con dos pestañas, "
 - **Después** (`OrquestadorLoT_-_casa_inteligente_despues_.psc`): permite elegir uno de los 5 escenarios de sensores definidos en el pseudocódigo original, además de la preferencia de ventilación y el modo de seguridad. Reproduce las 4 fases del orquestador (recepción de datos, aprendizaje, evaluación de reglas y reporte final), corrigiendo cada inconsistencia y mostrando el resumen de casos consistentes/inconsistentes.
 
 La salida de ambas simulaciones se muestra en una consola estilizada (`.terminal`) que reproduce, línea por línea, los mensajes `Escribir` del pseudocódigo original. Toda la lógica vive en `script.js`, sección **8. SIMULADOR DEL ORQUESTADOR**, y no depende de librerías externas ni de ejecutar PSeInt: es una reimplementación fiel en JavaScript vanilla.
+
+Debajo de cada consola hay un panel desplegable **"Ver pseudocódigo completo (PSeInt)"** con el texto íntegro y literal de los archivos `.psc` originales, tal cual fueron escritos en PSeInt (incluidas tildes, símbolos ¿? y comentarios), más un botón para descargar el archivo `.psc` directamente. Así la profesora puede tanto **leer** el algoritmo original como **probarlo** ejecutándose en la página.
 
 ## Videos de Google Drive
 
